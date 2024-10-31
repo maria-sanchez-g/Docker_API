@@ -2,8 +2,9 @@
 This project is a Dockerized API application that combines Flask and FastAPI. It includes Microsoft Authentication and provides a way to secure the APIs using OAuth2. 
 
 ## Setup Visual Studio
-1. Shell
+```bash
 python -m venv venv
+```
 .\venv\Scripts\activate
 pip freeze > requirements.txt
 
