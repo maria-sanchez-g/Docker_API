@@ -63,6 +63,15 @@ def callback():
 def check_auth_token():
     if 'access_token' not in session and request.endpoint != 'login' and request.endpoint != 'callback':
         return redirect(url_for('login'))  # Redirect to login if no access token is found
+# Protected route example
+@app.route("/protected")
+def protected():
+    # Retrieve token from session
+    token = session.get("access_token")
+    if token:
+        # Use the token as needed
+        return jsonify(message="Access to protected route granted", token=token)
+    return jsonify(error="Unauthorized access"), 401
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
 
