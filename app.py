@@ -58,6 +58,11 @@ def callback():
             return jsonify(error="Authentication failed", details=token_response.get("error_description"))
     return jsonify(error="No authorization code received")
 
+# Middleware-like function to check access token in session
+@app.before_request
+def check_auth_token():
+    if 'access_token' not in session and request.endpoint != 'login' and request.endpoint != 'callback':
+        return redirect(url_for('login'))  # Redirect to login if no access token is found
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
 
