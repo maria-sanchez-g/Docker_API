@@ -51,6 +51,8 @@ def callback():
             redirect_uri=REDIRECT_URI
         )
         if "access_token" in token_response:
+            # Store token in session
+            session['access_token'] = token_response["access_token"]
             return jsonify(token_response)
         else:
             return jsonify(error="Authentication failed", details=token_response.get("error_description"))
