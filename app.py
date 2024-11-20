@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, redirect, request
+from flask import Flask, jsonify, redirect, request, session, url_for
 import msal
 import os
 from dotenv import load_dotenv
@@ -9,12 +9,15 @@ load_dotenv()
 # Flask app initialization
 app = Flask(__name__)
 
+# Set a secret key for session management
+app.secret_key = os.getenv("SECRET_KEY") # Or replace with os.getenv("SECRET_KEY") from .env file if you prefer
+
 # Load the values from the .env file
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 AUTHORITY = os.getenv("AUTHORITY")
 REDIRECT_URI = os.getenv("REDIRECT_URI")
-SCOPE = ["User.Read"]  # Adjust scope if needed
+SCOPE = ["User.Read"]
 
 # MSAL client instance
 msal_client = msal.ConfidentialClientApplication(
